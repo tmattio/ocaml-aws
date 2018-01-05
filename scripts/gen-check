@@ -1,0 +1,9 @@
+#!/bin/bash
+
+BEFORE=$(mktemp)
+AFTER=$(mktemp)
+
+find . -type f | grep "mli\?$" | xargs md5sum > $BEFORE
+make gen
+find . -type f | grep "mli\>$" | xargs md5sum > $AFTER
+diff $BEFORE $AFTER
